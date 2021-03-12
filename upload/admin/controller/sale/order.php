@@ -464,6 +464,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	public function info(): object|null {
 		$this->load->model('sale/order');
 
+                $data['base_admin'] = HTTP_SERVER;
+                
 		if (isset($this->request->get['order_id'])) {
 			$order_id = (int)$this->request->get['order_id'];
 		} else {
@@ -564,6 +566,8 @@ class Order extends \Opencart\System\Engine\Controller {
 			// Store
 			$data['store_id'] = $order_info['store_id'];
 			$data['store_name'] = $order_info['store_name'];
+                        $data['conversion_date'] = $order_info['conversion_date'];
+                        $data['cutoff_date'] = $order_info['cutoff_date'];
 
 			if ($order_info['store_id'] == 0) {
 				$data['store_url'] = HTTP_CATALOG;
@@ -1903,4 +1907,11 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$this->response->setOutput($this->load->view('sale/order_shipping', $data));
 	}
+        
+        public function saveConversionCutoffDate(){
+            
+                   $this->load->model('sale/order');
+                   $this->model_sale_order->saveConversionCutoffDate($this->request->post, $this->request->get['order_id']);
+        }
+                  
 }

@@ -141,7 +141,9 @@ class Order extends \Opencart\System\Engine\Model {
 				'user_agent'              => $order_query->row['user_agent'],
 				'accept_language'         => $order_query->row['accept_language'],
 				'date_added'              => $order_query->row['date_added'],
-				'date_modified'           => $order_query->row['date_modified']
+				'date_modified'           => $order_query->row['date_modified'],
+                                'conversion_date'         => $order_query->row['conversion_date'],
+				'cutoff_date'             => $order_query->row['cutoff_date']
 			];
 		} else {
 			return [];
@@ -512,5 +514,11 @@ class Order extends \Opencart\System\Engine\Model {
 		$query = $this->db->query("SELECT COUNT(DISTINCT o.`email`) AS `total` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_product` op ON (o.`order_id` = op.`order_id`) WHERE (" . implode(" OR ", $implode) . ") AND o.`order_status_id` <> '0'");
 
 		return (int)$query->row['total'];
+	}
+        
+        public function saveConversionCutoffDate($data, $order_id) {
+            
+            $query = $this->db->query("UPDATE `" . DB_PREFIX . "order` SET conversion_date = '" . $this->db->escape($data['conversion_date']) . "', cutoff_date = '" . $this->db->escape($data['cutoff_date']) . "' WHERE order_id = '". $order_id ."'");
+            
 	}
 }

@@ -37,6 +37,7 @@ $_['text_shipping_address']      = 'Shipping Address';
 $_['text_comment']               = 'Customer Comment';
 $_['text_history']               = 'Order History';
 $_['text_history_add']           = 'Add Order History';
+$_['text_conversion_cutoff']     = 'Add Conversion and Cutoff date';
 
 $_['text_account_custom_field']  = 'Account Custom Fields';
 $_['text_payment_custom_field']  = 'Payment Address Custom Fields';
@@ -135,6 +136,8 @@ $_['entry_order_id']             = 'Order ID';
 $_['entry_total']                = 'Total';
 $_['entry_date_added']           = 'Date Added';
 $_['entry_date_modified']        = 'Date Modified';
+$_['entry_conversion_date']      = 'Conversion Date';
+$_['entry_cutoff_date']          = 'Cutoff Date';
 
 // Help
 $_['help_override']              = 'If the customers order is being blocked from changing the order status due to an anti-fraud extension enable override.';

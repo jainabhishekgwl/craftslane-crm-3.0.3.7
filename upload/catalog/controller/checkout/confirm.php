@@ -99,7 +99,12 @@ class Confirm extends \Opencart\System\Engine\Controller {
 
 			$this->load->language('checkout/checkout');
 
-			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
+			if ($this->config->get('config_country_id')==$this->session->data['payment_address']['country_id']) {
+                            $order_data['invoice_prefix'] = $this->config->get('config_exp_invoice_prefix');
+                        }else{
+                            $order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
+                        }
+                        
 			$order_data['store_id'] = $this->config->get('config_store_id');
 			$order_data['store_name'] = $this->config->get('config_name');
 			$order_data['store_url'] = $this->config->get('config_url');
