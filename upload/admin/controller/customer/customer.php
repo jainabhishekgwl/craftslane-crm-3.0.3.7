@@ -77,6 +77,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 		$this->load->model('customer/customer');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+                    
 			$this->model_customer_customer->editCustomer($this->request->get['customer_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -581,11 +582,36 @@ class Customer extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['error_telephone'] = '';
 		}
+                
+                if (isset($this->error['gst'])) {
+			$data['error_gst'] = $this->error['gst'];
+		} else {
+			$data['error_gst'] = '';
+		}
+                
+                if (isset($this->error['dob'])) {
+			$data['error_dob'] = $this->error['dob'];
+		} else {
+			$data['error_dob'] = '';
+		}
+                
+                if (isset($this->error['company'])) {
+			$data['error_company'] = $this->error['company'];
+		} else {
+			$data['error_company'] = '';
+		}
+                
 
 		if (isset($this->error['password'])) {
 			$data['error_password'] = $this->error['password'];
 		} else {
 			$data['error_password'] = '';
+		}
+                
+                if (isset($this->error['confirm'])) {
+			$data['error_confirm'] = $this->error['confirm'];
+		} else {
+			$data['error_confirm'] = '';
 		}
 
 		if (isset($this->error['confirm'])) {
@@ -746,6 +772,30 @@ class Customer extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['telephone'] = '';
 		}
+                
+                if (isset($this->request->post['gst'])) {
+			$data['gst'] = $this->request->post['gst'];
+		} elseif (!empty($customer_info)) {
+			$data['gst'] = $customer_info['gst'];
+		} else {
+			$data['gst'] = '';
+		}
+                
+                if (isset($this->request->post['dob'])) {
+			$data['dob'] = $this->request->post['dob'];
+		} elseif (!empty($customer_info)) {
+			$data['dob'] = $customer_info['dob'];
+		} else {
+			$data['dob'] = '';
+		}
+                
+                if (isset($this->request->post['company'])) {
+			$data['company'] = $this->request->post['company'];
+		} elseif (!empty($customer_info)) {
+			$data['company'] = $customer_info['company'];
+		} else {
+			$data['company'] = '';
+		}
 
 		// Custom Fields
 		$this->load->model('customer/custom_field');
@@ -873,8 +923,16 @@ class Customer extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
-			$this->error['telephone'] = $this->language->get('error_telephone');
+//		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
+//			$this->error['telephone'] = $this->language->get('error_telephone');
+//		}
+                
+                if ((utf8_strlen($this->request->post['gst']) != 15)) {
+			$this->error['gst'] = $this->language->get('error_gst');
+		}
+                
+                if (empty($this->request->post['dob'])) {
+			$this->error['dob'] = $this->language->get('error_dob');
 		}
 
 		// Custom field validation
@@ -892,15 +950,15 @@ class Customer extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if ($this->request->post['password'] || (!isset($this->request->get['customer_id']))) {
-			if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
-				$this->error['password'] = $this->language->get('error_password');
-			}
-
-			if ($this->request->post['password'] != $this->request->post['confirm']) {
-				$this->error['confirm'] = $this->language->get('error_confirm');
-			}
-		}
+//		if ($this->request->post['password'] || (!isset($this->request->get['customer_id']))) {
+//			if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
+//				$this->error['password'] = $this->language->get('error_password');
+//			}
+//
+//			if ($this->request->post['password'] != $this->request->post['confirm']) {
+//				$this->error['confirm'] = $this->language->get('error_confirm');
+//			}
+//		}
 
 		if (isset($this->request->post['address'])) {
 			foreach ($this->request->post['address'] as $key => $value) {
@@ -1326,7 +1384,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			];
 
 			$results = $this->model_customer_customer->getCustomers($filter_data);
-
+                        
 			foreach ($results as $result) {
 				$json[] = [
 					'customer_id'       => $result['customer_id'],
@@ -1337,6 +1395,9 @@ class Customer extends \Opencart\System\Engine\Controller {
 					'lastname'          => $result['lastname'],
 					'email'             => $result['email'],
 					'telephone'         => $result['telephone'],
+                                        'gst'               => $result['gst'],
+                                        'dob'               => $result['dob'],
+                                        'dob'               => $result['company'],
 					'custom_field'      => json_decode($result['custom_field'], true),
 					'address'           => $this->model_customer_customer->getAddresses($result['customer_id'])
 				];

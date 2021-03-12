@@ -684,6 +684,14 @@ class Setting extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['config_invoice_prefix'] = 'INV-' . date('Y') . '-00';
 		}
+                
+                if (isset($this->request->post['config_exp_invoice_prefix'])) {
+			$data['config_exp_invoice_prefix'] = $this->request->post['config_exp_invoice_prefix'];
+		} elseif ($this->config->get('config_exp_invoice_prefix')) {
+			$data['config_exp_invoice_prefix'] = $this->config->get('config_exp_invoice_prefix');
+		} else {
+			$data['config_exp_invoice_prefix'] = 'EXP-INV-' . date('Y') . '-00';
+		}
 
 		if (isset($this->request->post['config_order_status_id'])) {
 			$data['config_order_status_id'] = $this->request->post['config_order_status_id'];
