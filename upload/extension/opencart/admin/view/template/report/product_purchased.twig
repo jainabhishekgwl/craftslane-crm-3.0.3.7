@@ -34,7 +34,7 @@
           </select>
         </div>
         <div class="form-group text-right">
-          <button type="button" id="button-download" class="btn btn-warning pull-right"><i class="fa fa-download"></i> {{ button_download }}</button>
+          <a type="button" href="{{ customer_invoice }}" id="button-download" target='_blank' class="btn btn-warning pull-right"><i class="fa fa-download"></i> {{ button_download }}</a>
           <button type="button" id="button-filter" class="btn btn-light"><i class="fas fa-filter"></i> {{ button_filter }}</button>
         </div>
       </div>
@@ -110,30 +110,5 @@ $('.date').datetimepicker({
 	'format': 'YYYY-MM-DD',
 	'locale': '{{ datepicker }}',
 	'allowInputToggle': true
-});
-
-$('#button-download').on('click', function() {
-	
-	var url = '';
-
-	var filter_date_start = $('input[name=\'filter_date_start\']').val();
-
-	if (filter_date_start) {
-		url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
-	}
-
-	var filter_date_end = $('input[name=\'filter_date_end\']').val();
-
-	if (filter_date_end) {
-		url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
-	}
-
-	var filter_order_status_id = $('select[name=\'filter_order_status_id\']').val();
-
-	if (filter_order_status_id != 0) {
-		url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
-	}
-
-	location = 'index.php?route=report/report&code=product_purchased&user_token={{ user_token }}' + url + '&download=1';
 });
 //--></script>

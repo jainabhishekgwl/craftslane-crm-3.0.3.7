@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-9 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" border="1" width="50%">
+            <thead>
+              <tr>
+                <td class="text-left">{{ column_name }}</td>
+                <td class="text-left">{{ column_model }}</td>
+                <td class="text-right" style="text-align:right">{{ column_quantity }}</td>
+                <td class="text-right" style="text-align:right">{{ column_total }}</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% if products %}
+                {% for product in products %}
+                  <tr>
+                    <td class="text-left">{{ product.name }}</td>
+                    <td class="text-left">{{ product.model }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.quantity }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.total }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td class="text-center" colspan="4">{{ text_no_results }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
