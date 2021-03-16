@@ -3,23 +3,68 @@
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered" border="1" width="50%">
+          <table class="table table-bordered" border="1" width="200%">
             <thead>
               <tr>
-                <td class="text-left">{{ column_name }}</td>
-                <td class="text-left">{{ column_model }}</td>
-                <td class="text-right" style="text-align:right">{{ column_quantity }}</td>
-                <td class="text-right" style="text-align:right">{{ column_total }}</td>
+                <td class="text-right">{{ column_month }}</td>
+                <td class="text-right" style="text-align:right">{{ column_year }}</td>
+                <td class="text-right" style="text-align:right">{{ column_invoice_date }}</td>
+                <td class="text-right" style="text-align:right">{{ column_client_name }}</td>
+                <td class="text-right" style="text-align:right">{{ column_client_business }}</td>
+                <td class="text-right" style="text-align:right">{{ column_gst }}</td>
+                <td class="text-right" style="text-align:right">{{ column_amt_transfer_curr }}</td>
+                <td class="text-right" style="text-align:right">{{ column_currency}}</td>
+                <td class="text-right" style="text-align:right">{{ column_exch_rate }}</td>
+                <td class="text-right" style="text-align:right">{{ column_receving_amount }}</td>
+                <td class="text-right" style="text-align:right">{{ column_igst }}</td>
+                <td class="text-right" style="text-align:right">{{ column_cgst }}</td>
+                <td class="text-right" style="text-align:right">{{ column_sgst }}</td>
+                <td class="text-right" style="text-align:right">{{ column_tds }}</td>
+                <td class="text-right" style="text-align:right">{{ column_tds_deduction }}</td>
+                <td class="text-right" style="text-align:right">{{ column_total_amount }}</td>
+                <td class="text-right" style="text-align:right">{{ column_payment_date }}</td>
+                <td class="text-right" style="text-align:right">{{ column_cutoff }}</td>
+                <td class="text-right" style="text-align:right">{{ column_base_usd }}</td>
+                <td class="text-right" style="text-align:right">{{ column_based_exchange_rate }}</td>
+                <td class="text-right" style="text-align:right">{{ column_based_amount }}</td>
+                <td class="text-right" style="text-align:right">{{ column_source_from }}</td>
+                <td class="text-right" style="text-align:right">{{ column_bank }}</td>
+                <td class="text-right" style="text-align:right">{{ column_acc_name }}</td>
+                <td class="text-right" style="text-align:right">{{ column_transaction }}</td>
+                <td class="text-right" style="text-align:right">{{ column_part_of_income }}</td>
+              </tr>
               </tr>
             </thead>
             <tbody>
               {% if products %}
                 {% for product in products %}
                   <tr>
-                    <td class="text-left">{{ product.name }}</td>
-                    <td class="text-left">{{ product.model }}</td>
-                    <td class="text-right" style="text-align:right">{{ product.quantity }}</td>
-                    <td class="text-right" style="text-align:right">{{ product.total }}</td>
+                    <td class="text-right">{{ product.month }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.year }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.invoice_date }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.customer_name }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.company }}</td>
+                    <td class="text-right" style="text-align:right">{{ product.gst }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_amt_transfer_curr }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_currency}}</td>
+                    <td class="text-right" style="text-align:right">{{ column_exch_rate }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_receving_amount }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_igst }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_cgst }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_sgst }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_tds }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_tds_deduction }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_total }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_payment_date }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_cutoff }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_base_usd }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_based_exchange_rate }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_based_amount }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_source_from }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_bank }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_acc_name }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_transaction }}</td>
+                    <td class="text-right" style="text-align:right">{{ column_part_of_income }}</td>
                   </tr>
                 {% endfor %}
               {% else %}

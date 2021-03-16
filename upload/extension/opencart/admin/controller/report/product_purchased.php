@@ -204,22 +204,33 @@ class ProductPurchased extends \Opencart\System\Engine\Controller {
 			'start'                  => ($page - 1) * $this->config->get('config_pagination'),
 			'limit'                  => $this->config->get('config_pagination')
 		];
-                
-                if(isset($this->request->get['download']) && !empty($this->request->get['download'])){
-                    $this->load->model('extension/opencart/report/sale');
-                    $this->model_extension_opencart_report_sale->download($filter_data,'purchased_report','Purchased','purchased_report');
-                }
 
 		$product_total = $this->model_extension_opencart_report_product->getTotalPurchased($filter_data);
 
-		$results = $this->model_extension_opencart_report_product->getPurchased($filter_data);
+		$results = $this->model_extension_opencart_report_product->getInvoicePurchased($filter_data);
 
 		foreach ($results as $result) {
+                    $order_date = date_parse($result['date_added']);
+                    
+                    $monthNum = sprintf("%02s", $order_date["month"]);
+                    $monthName = date("M", strtotime($monthNum));
+                    $invoice_date = date("d-M-y", strtotime($result['date_added']));
+                    $year = $order_date["year"];
+                    $customer_name = $result['firstname'].' '.$result['lastname'];
+                    $company = $result['company'];
+                    $gst = $result['gst'];
+                    
 			$data['products'][] = [
-				'name'     => $result['name'],
-				'model'    => $result['model'],
-				'quantity' => $result['quantity'],
-				'total'    => $this->currency->format($result['total'], $this->config->get('config_currency'))
+				'name'            => $result['name'],
+                                'month'           => $monthName,
+                                'year'            => $year,
+                                'invoice_date'    => $invoice_date,
+                                'customer_name'   => $customer_name,
+                                'company'         => $company,
+                                'gst'             => $gst,
+				'model'           => $result['model'],
+				'quantity'        => $result['quantity'],
+				'total'           => $this->currency->format($result['total'], $this->config->get('config_currency'))
 			];
 		}
 
